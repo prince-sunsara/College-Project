@@ -1,5 +1,5 @@
 import { Box, Button, Dialog, Input, TextField, Typography, styled } from '@mui/material';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createUser, loginUser } from '../../services/api';
 
@@ -73,7 +73,6 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
         try {
             const response = await createUser(form);
             const result = response.data;
-            // console.log(result)
             if (result.success) {
                 localStorage.setItem('token', result.authtoken);
                 setAccount(intialStatus.signup);
@@ -106,7 +105,9 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
             console.log('user creation error', error);
         }
     }
+    useEffect(() => {
 
+    }, []);
     return (
         <>
             <Box onClick={handleOpen}>Login</Box>
