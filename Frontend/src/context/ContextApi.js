@@ -5,7 +5,7 @@ import { createContext, useState } from "react";
 export const ContextApi = createContext();
 
 export const ContextApiProvider = ({ children }) => {
-    const isAuth = localStorage.getItem('authtoken');
+    const isAuth = localStorage.getItem('token');
     const url = 'http://localhost:5000';
     const [userData, setUserData] = useState({
         name: '',

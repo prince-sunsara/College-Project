@@ -1,5 +1,5 @@
 import { Box, Button, Dialog, Input, TextField, Typography, styled } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createUser, loginUser } from '../../services/api';
 import { ContextApi } from '../../context/ContextApi';
@@ -15,7 +15,8 @@ const Wrapper = styled(Box)`
 `;
 
 
-const ProfileButton = ({ setAccount, intialStatus }) => {
+
+const ProfileButton = () => {
     const [open, setOpen] = useState(false);
     const [signup, setSignup] = useState(true);
     const navigate = useNavigate();
@@ -47,9 +48,9 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
         setLogin({ ...login, [name]: value });
     };
 
+
     /// signin method
     const signupAuth = async (e) => {
-        e.preventDefault();
 
         const form = new FormData(this);
 
@@ -63,9 +64,9 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
         try {
             const response = await createUser(form);
             const result = response.data;
+
             if (result.success) {
                 localStorage.setItem('token', result.authtoken);
-                setAccount(intialStatus.signup);
                 handleClose();
                 navigate('/dashboard')
             } else {
@@ -77,14 +78,14 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
     }
 
     /// login method
-    const loginAuth = async () => {
+    const loginAuth = async (e) => {
+
         try {
             const response = await loginUser(login);
             const result = response.data;
 
             if (result.success) {
                 localStorage.setItem('token', result.authtoken);
-                setAccount(intialStatus.signup);
                 handleClose();
                 navigate('/dashboard');
             } else {
@@ -123,7 +124,7 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
                         {error && <Typography className='text-red-500 text-sm'>Please enter valid email or password!</Typography>}
                         <Button
                             variant='contained'
-                            onClick={() => loginAuth()}
+                            onClick={(e) => loginAuth(e)}
                         >
                             Login
                         </Button>

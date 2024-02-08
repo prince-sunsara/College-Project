@@ -1,5 +1,5 @@
 import { AppBar, Box, Drawer, List, ListItem, Toolbar, styled } from "@mui/material"
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import LoginButton from './LoginButton';
 import { useContext, useState } from "react";
 import { AccountCircle } from "@mui/icons-material";
@@ -10,19 +10,8 @@ const Header = styled(AppBar)`
 `;
 
 
-const intialStatus = {
-    login: {
-        view: 'login',
-    },
-    signup: {
-        view: 'signup',
-    }
-}
-
 const Nav = () => {
     const [open, setOpen] = useState(false);
-    const [account, setAccount] = useState(intialStatus.login);
-    const navigate = useNavigate();
     const { isAuth } = useContext(ContextApi);
 
     /// drawer open close methods 
@@ -33,12 +22,10 @@ const Nav = () => {
         setOpen(false);
     }
 
-
-    const logoutAuth = () => {
+    /// logout user
+    const logoutAuth = (e) => {
         localStorage.removeItem('token');
-        setAccount(intialStatus.login);
         handleClose();
-        navigate("/loginUser");
     }
 
     return (
@@ -53,10 +40,6 @@ const Nav = () => {
                     </ListItem>
                     {
                         isAuth ?
-                            <ListItem className="cursor-pointer">
-                                <LoginButton account={account} setAccount={setAccount} intialStatus={intialStatus} />
-                            </ListItem>
-                            :
                             <>
                                 <ListItem>
                                     <Link to="/dashboard">Dashboard</Link>
@@ -72,10 +55,15 @@ const Nav = () => {
                                     <Box className="bg-black flex flex-col text-white h-full">
                                         <Link onClick={handleClose} className='py-2 px-6 text-right font-bold'>X</Link>
                                         <Link to='/profile' onClick={handleClose} className='py-2 px-6 hover:bg-white hover:text-black'>Profile</Link>
-                                        <Link onClick={() => logoutAuth()} className='py-2 px-6 hover:bg-white hover:text-black'>Logout</Link>
+                                        <Link to='/' onClick={() => logoutAuth()} className='py-2 px-6 hover:bg-white hover:text-black'>Logout</Link>
                                     </Box>
                                 </Drawer>
                             </>
+                            :
+                            <ListItem className="cursor-pointer">
+                                <LoginButton />
+                            </ListItem>
+
                     }
                 </List>
             </Toolbar>
