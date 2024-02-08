@@ -79,9 +79,7 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
     /// login method
     const loginAuth = async () => {
         try {
-            console.log(login)
             const response = await loginUser(login);
-            // console.log(response.data);
             const result = response.data;
 
             if (result.success) {
