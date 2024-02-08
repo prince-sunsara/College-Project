@@ -1,5 +1,6 @@
 import User from '../schemas/user-schema.js';
 import jwt from 'jsonwebtoken';
+import path from 'path';
 
 /// jwt secrete key
 const jwtToken = process.env.JWT_SECRETE;
@@ -27,7 +28,7 @@ export const createUser = async (req, res) => {
             await newUser.save();
 
             const data = {
-                newUser: {
+                user: {
                     id: newUser.id,
                 }
             }
@@ -69,11 +70,18 @@ export const loginUser = async (req, res) => {
 
 /// get user
 export const getUser = async (req, res) => {
+    // console.log("findind user", req.user)
     try {
         const userId = req.user.id;
-        const user = await User.findById(userId);
-        res.status(200).json({ user });
+        const user = await User.findOne({ _id: userId });
+        // console.log("User=", user);
+
+        const image = user.filepath;
+        const absoluteImage = path.join(process.cwd(), image);
+        // console.log(absoluteImage)
+
+        return res.status(200).json({ user, absoluteImage });
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        return res.status(500).json({ message: error.message });
     }
 }

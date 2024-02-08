@@ -28,3 +28,20 @@ export const loginUser = async (data) => {
         console.log("Frontend Error: while login to existing user", err);
     }
 };
+
+
+/// getting user
+export const getUser = async () => {
+    try {
+        const res = await axios.get(`${url}/getUser`, {
+            headers: {
+                'Content-Type': 'application/json',
+                'auth-token': localStorage.getItem("token")
+            }
+        });
+        console.log("Frontend get user response: ", res.data);
+        return res.data;
+    } catch (error) {
+        console.log("Frontend Error: while getting user", error);
+    }
+}
