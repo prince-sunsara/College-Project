@@ -45,12 +45,21 @@ export const createUser = async (req, res) => {
 /// login to existing user
 export const loginUser = async (req, res) => {
     // console.log(req.body);
+    let success = false;
     try {
         const user = await User.findOne({ email: req.body.email, password: req.body.password });
         if (!user) {
-            return res.status(401).json({ message: "Invalid Email or Password" });
+            success = false;
+            return res.status(401).json({ success, message: "Invalid Email or Password" });
         } else {
-            return res.status(200).json({ user });
+            const data = {
+                user: {
+                    id: user.id,
+                }
+            }
+            const authtoken = jwt.sign(data, jwtToken);
+            success = true;
+            return res.status(200).json({ success, authtoken });
         }
     } catch (error) {
         console.log("Backend error : while login to existing user", error)

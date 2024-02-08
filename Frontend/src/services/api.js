@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const url = 'http://localhost:5000'
+const url = 'http://localhost:5000';
 
 /// create a new user
 export const createUser = async (data) => {

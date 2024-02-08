@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Attendance, Dashboard, Home, Nav, Reports, Profile } from './components';
-import { ContextApiProvider } from './components/context/ContextApi';
+import { ContextApiProvider } from './context/ContextApi';
 
 function App() {
 

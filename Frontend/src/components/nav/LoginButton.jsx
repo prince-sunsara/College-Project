@@ -1,7 +1,8 @@
 import { Box, Button, Dialog, Input, TextField, Typography, styled } from '@mui/material';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { createUser, loginUser } from '../../services/api';
+import { ContextApi } from '../../context/ContextApi';
 
 const Wrapper = styled(Box)`
     & > * {
@@ -18,18 +19,7 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
     const [open, setOpen] = useState(false);
     const [signup, setSignup] = useState(true);
     const navigate = useNavigate();
-    const [userData, setUserData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        password: '',
-    });
-    const [file, setFile] = useState('');
-    const [login, setLogin] = useState({
-        email: '',
-        password: '',
-    });
-    const [error, setError] = useState(false);
+    const { userData, setUserData, error, setError, file, setFile, login, setLogin } = useContext(ContextApi);
 
     /// dialog setup
     const handleOpen = () => {
@@ -89,6 +79,7 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
     /// login method
     const loginAuth = async () => {
         try {
+            console.log(login)
             const response = await loginUser(login);
             // console.log(response.data);
             const result = response.data;
@@ -105,9 +96,7 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
             console.log('user creation error', error);
         }
     }
-    useEffect(() => {
 
-    }, []);
     return (
         <>
             <Box onClick={handleOpen}>Login</Box>
@@ -133,7 +122,7 @@ const ProfileButton = ({ setAccount, intialStatus }) => {
                             value={login.password}
                             onChange={onLoginInputChange}
                         />
-                        {error && <Typography>Please enter valid email or password!</Typography>}
+                        {error && <Typography className='text-red-500 text-sm'>Please enter valid email or password!</Typography>}
                         <Button
                             variant='contained'
                             onClick={() => loginAuth()}
