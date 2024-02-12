@@ -15,22 +15,19 @@ const Profile = () => {
     const defaultImage = "https://thumbs.dreamstime.com/z/young-student-profile-icon-illustration-graphic-design-88972970.jpg";
 
     useEffect(() => {
-        const data = getUser();
-        console.log(data);
-        data
-            .then((user, absoluteImage) => {
-                setUserData({
-                    name: user.user.name,
-                    email: user.user.email,
-                    phone: user.user.phone,
-                    password: user.user.password,
-                });
-                const path = user.absoluteImage;
-                // path = path.slice(0, -1);
-                setFile(path.slice(0, -1));
-            })
-            .catch((error) => console.log("Error while updating user", error));
-    }, []);
+        const fetchData = async () => {
+            const user = await getUser();
+            setUserData({
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                password: user.password,
+            });
+
+            setFile(user.filepath);
+        }
+        fetchData();
+    }, [file, setFile, setUserData]);
 
 
     return (
@@ -41,9 +38,9 @@ const Profile = () => {
                 <Box className="mt-8">
                     <Box className="mx-2">
                         <img
-                            style={{ width: "15rem", borderRadius: "50%" }}
-                            src={file ? file : defaultImage}
-                            alt="student image"
+                            style={{ width: "15rem", height: "15rem", borderRadius: "50%" }}
+                            src={file ? `http://localhost:5000/${file}` : defaultImage}
+                            alt="student profile"
                         />
                     </Box>
                     <Typography align="center" variant="h4">{userData.name}</Typography>

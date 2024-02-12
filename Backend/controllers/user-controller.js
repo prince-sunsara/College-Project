@@ -1,6 +1,5 @@
 import User from '../schemas/user-schema.js';
 import jwt from 'jsonwebtoken';
-import path from 'path';
 
 /// jwt secrete key
 const jwtToken = process.env.JWT_SECRETE;
@@ -9,7 +8,7 @@ const jwtToken = process.env.JWT_SECRETE;
 export const createUser = async (req, res) => {
     let success = false;
 
-    const user = {
+    const newUser = {
         name: req.body.name,
         email: req.body.email,
         phone: req.body.phone,
@@ -24,12 +23,12 @@ export const createUser = async (req, res) => {
         if (exist) {
             return res.status(401).json({ success, message: "User allready exist!" });
         } else {
-            const newUser = new User(user);
-            await newUser.save();
+            const user = new User(newUser);
+            await user.save();
 
             const data = {
                 user: {
-                    id: newUser.id,
+                    id: user.id,
                 }
             }
 
@@ -70,17 +69,10 @@ export const loginUser = async (req, res) => {
 
 /// get user
 export const getUser = async (req, res) => {
-    // console.log("findind user", req.user)
     try {
         const userId = req.user.id;
         const user = await User.findOne({ _id: userId });
-        // console.log("User=", user);
-
-        const image = user.filepath;
-        const absoluteImage = path.join(process.cwd(), image);
-        // console.log(absoluteImage)
-
-        return res.status(200).json({ user, absoluteImage });
+        return res.status(200).json({ user });
     } catch (error) {
         return res.status(500).json({ message: error.message });
     }

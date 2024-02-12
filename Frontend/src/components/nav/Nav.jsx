@@ -13,6 +13,7 @@ const Header = styled(AppBar)`
 const Nav = () => {
     const [open, setOpen] = useState(false);
     const { isAuth } = useContext(ContextApi);
+    const { setUserData, setFile } = useContext(ContextApi);
 
     /// drawer open close methods 
     const handleOpen = () => {
@@ -25,8 +26,12 @@ const Nav = () => {
     /// logout user
     const logoutAuth = (e) => {
         localStorage.removeItem('token');
+        setUserData({});
+        setFile("");
         handleClose();
     }
+
+
 
     return (
         <Header className="flex text-white justify-between h-[64px]">

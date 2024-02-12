@@ -35,13 +35,13 @@ export const getUser = async () => {
     try {
         const res = await axios.get(`${url}/getUser`, {
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'multipart/form-data',
                 'auth-token': localStorage.getItem("token")
             }
         });
-        console.log("Frontend get user response: ", res.data);
-        return res.data;
+        return res.data.user;
     } catch (error) {
         console.log("Frontend Error: while getting user", error);
+        throw error;
     }
 }

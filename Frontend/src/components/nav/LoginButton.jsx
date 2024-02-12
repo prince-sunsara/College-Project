@@ -1,7 +1,7 @@
 import { Box, Button, Dialog, Input, TextField, Typography, styled } from '@mui/material';
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { createUser, loginUser } from '../../services/api';
+import { createUser, getUser, loginUser } from '../../services/api';
 import { ContextApi } from '../../context/ContextApi';
 
 const Wrapper = styled(Box)`
@@ -67,6 +67,7 @@ const ProfileButton = () => {
 
             if (result.success) {
                 localStorage.setItem('token', result.authtoken);
+                getUser()
                 handleClose();
                 navigate('/dashboard')
             } else {
@@ -86,6 +87,7 @@ const ProfileButton = () => {
 
             if (result.success) {
                 localStorage.setItem('token', result.authtoken);
+                getUser()
                 handleClose();
                 navigate('/dashboard');
             } else {
