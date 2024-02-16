@@ -1,7 +1,7 @@
 import { Box, Button, Dialog, Input, TextField, Typography, styled } from '@mui/material';
 import React, { useContext, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { createUser, getUser, loginUser } from '../../services/api';
+import { createUser, loginUser } from '../../services/api';
 import { ContextApi } from '../../context/ContextApi';
 
 const Wrapper = styled(Box)`
@@ -51,7 +51,6 @@ const ProfileButton = () => {
 
     /// signin method
     const signupAuth = async (e) => {
-
         const form = new FormData(this);
 
         form.append('name', userData.name);
@@ -67,7 +66,8 @@ const ProfileButton = () => {
 
             if (result.success) {
                 localStorage.setItem('token', result.authtoken);
-                getUser()
+                setUserData({})
+                setFile("")
                 handleClose();
                 navigate('/dashboard')
             } else {
@@ -80,14 +80,14 @@ const ProfileButton = () => {
 
     /// login method
     const loginAuth = async (e) => {
-
         try {
             const response = await loginUser(login);
             const result = response.data;
 
             if (result.success) {
                 localStorage.setItem('token', result.authtoken);
-                getUser()
+                setUserData({})
+                setFile("")
                 handleClose();
                 navigate('/dashboard');
             } else {

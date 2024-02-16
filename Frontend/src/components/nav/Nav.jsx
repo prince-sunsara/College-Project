@@ -7,6 +7,7 @@ import { ContextApi } from "../../context/ContextApi";
 
 const Header = styled(AppBar)`
     background: #000;
+    box-shadow: 0 4px 8px 0 rgba(255,255,255, 0.2), 0 6px 20px 0 rgba(255,255,255, 0.19);
 `;
 
 
@@ -34,7 +35,7 @@ const Nav = () => {
 
 
     return (
-        <Header className="flex text-white justify-between h-[64px]">
+        <Header className="flex justify-between h-[64px]">
             <Toolbar>
                 <ListItem>
                     <Link to="/" className='font-bold text-3xl'>OATS</Link>
