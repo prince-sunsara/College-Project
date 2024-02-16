@@ -6,7 +6,6 @@ import { ContextApi } from "../../context/ContextApi";
 
 const Component = styled(Grid)`
     padding-top: 64px;
-    background: azure;
     height: 100vh;
 `;
 
@@ -33,7 +32,7 @@ const Profile = () => {
     return (
         <Component container>
             <Grid item lg={3} xl={4} md={4} sm={4} xs={12}
-                className="flex justify-center bg-gray-400"
+                className="flex justify-center border-r-2 border-r-slate-500"
             >
                 <Box className="mt-8">
                     <Box className="mx-2">
