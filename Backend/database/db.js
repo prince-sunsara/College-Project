@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
-const uri = `mongodb+srv://princesunasara977:${process.env.MONGODB_API}@majorproject.safqimk.mongodb.net/?retryWrites=true&w=majority`
+// const uri = `mongodb+srv://princesunasara977:${process.env.MONGODB_API}@majorproject.safqimk.mongodb.net/?retryWrites=true&w=majority`
+const uri = "mongodb://localhost/project";
 
 const DBConnection = async () => {
     try {
