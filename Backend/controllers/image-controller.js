@@ -5,7 +5,6 @@ import { dirname } from 'path';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const uploadsPath = path.join(__dirname, '..', 'uploads');
-console.log(uploadsPath);
 
 // Serve all images in the uploads folder
 export function getImages(req, res) {
