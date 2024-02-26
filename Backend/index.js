@@ -4,6 +4,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import DBConnection from './database/db.js'
 import Routes from './routes/route.js';
+import imageController from './controllers/image-controller.js'
+import { spawn } from 'child_process';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -20,6 +22,10 @@ app.use('/', Routes);
 app.get('/', (req, res) => {
     res.send('<h1>Prince Sunsara</h1>')
 })
+
+
+/// for live attendance
+app.use('/images', imageController); // Use the image controller
 
 
 DBConnection();
