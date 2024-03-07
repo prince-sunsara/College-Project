@@ -4,16 +4,16 @@ import { spawn } from 'child_process';
 
 const router = express.Router();
 
-router.get('/recordAttendance', (req, res) => {
-    console.log("record attendance", req.body)
+router.get('/liveRecord', (req, res) => {
     const pythonProcess = spawn('python', ['live_attendance.py']);
 
     pythonProcess.stdout.on('data', (data) => {
+        console.log("data : ", data);
         console.log(`Python Script Output: ${data}`);
     });
 
     pythonProcess.stderr.on('data', (data) => {
-        console.log("data after recording the attendance", data);
+        console.log("Error while recording attendance", data);
         console.error(`Error in Python Script: ${data}`);
     });
 
@@ -25,18 +25,11 @@ router.get('/recordAttendance', (req, res) => {
 });
 
 
+router.post('/recordAttendance', (req, res) => {
+    console.log("recording attendance", req.body);
 
-// router.post('/recordAttendance', (req, res) => {
-//     console.log(req.body);
-//     const { students } = req.body;
-
-//     if (Array.isArray(students) && students.length > 0) {
-//         recordedAttendance.push(...students);
-//         console.log('Attendance recorded:', students);
-//         res.status(200).json({ message: 'Attendance recorded successfully' });
-//     } else {
-//         res.status(400).json({ error: 'Invalid request payload' });
-//     }
-// })
+    // Add logic here to handle attendance recording based on the received payload
+    res.status(200).send('Attendance recorded successfully.'); // Sending a response for the POST request
+});
 
 export default router;

@@ -54,11 +54,11 @@ def main():
         
         # Check if 2 minutes have passed since the last recognition
         elapsed_time = time.time() - start_time
-        if elapsed_time >= 120 and not attendance_recorded:
+        if elapsed_time >= 30 and not attendance_recorded:
             # Send a request to your Node.js API to record attendance
             payload = {'students': recognized_names}
             try:
-                response = requests.post("http://localhost:5000/images/recordAttendance", json=payload)
+                response = requests.post("http://localhost:5000/attendance/recordAttendance", json=payload)
                 response.raise_for_status()  # Raise an HTTPError for bad responses
                 print(f"Attendance recorded: {response.text}")
                 attendance_recorded = True
