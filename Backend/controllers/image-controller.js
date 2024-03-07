@@ -28,6 +28,7 @@ export function getImages(req, res) {
 
 
 router.get('/recordAttendance', (req, res) => {
+    console.log(req.body)
     const pythonProcess = spawn('python', ['live_attendance.py']);
 
     pythonProcess.stdout.on('data', (data) => {
@@ -35,6 +36,7 @@ router.get('/recordAttendance', (req, res) => {
     });
 
     pythonProcess.stderr.on('data', (data) => {
+        console.log(data);
         console.error(`Error in Python Script: ${data}`);
     });
 
@@ -44,5 +46,21 @@ router.get('/recordAttendance', (req, res) => {
 
     res.send('Attendance recording started.');
 });
+
+
+
+router.post('/recordAttendance', (req, res) => {
+    console.log(req.body);
+    const { students } = req.body;
+
+    if (Array.isArray(students) && students.length > 0) {
+        recordedAttendance.push(...students);
+        console.log('Attendance recorded:', students);
+        res.status(200).json({ message: 'Attendance recorded successfully' });
+    } else {
+        res.status(400).json({ error: 'Invalid request payload' });
+    }
+})
+
 
 export default router;
