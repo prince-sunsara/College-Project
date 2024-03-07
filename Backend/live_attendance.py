@@ -37,20 +37,20 @@ def main():
     start_time = time.time()
     attendance_recorded = False
 
-    video_capture = cv2.VideoCapture(0)  # Use 0 for default webcam
+    video_capture = cv2.VideoCapture(1)  # Use 0 for default webcam
 
     while True:
         # Capture frame-by-frame
         ret, frame = video_capture.read()
 
         name = recognize_faces(frame, known_faces)
-        print(name)
+        # print(name)
         
         if name:
             if name not in recognized_names:
                 recognized_names.append(name)
                 start_time = time.time()
-                print(f"face recognized as {name}")
+                # print(f"face recognized as {name}")
         
         # Check if 2 minutes have passed since the last recognition
         elapsed_time = time.time() - start_time

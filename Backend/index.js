@@ -4,8 +4,8 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import DBConnection from './database/db.js'
 import Routes from './routes/route.js';
-import imageController from './controllers/image-controller.js'
-import { spawn } from 'child_process';
+import imageController from './controllers/image-controller.js';
+import attendanceController from './controllers/attendance-controller.js';
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -26,6 +26,7 @@ app.get('/', (req, res) => {
 
 /// for live attendance
 app.use('/images', imageController); // Use the image controller
+app.use('/attendance', attendanceController); // Use the image controller
 
 
 DBConnection();
