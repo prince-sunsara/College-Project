@@ -1,6 +1,7 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, styled } from '@mui/material';
 import React from 'react';
-import { Bar, BarChart, Legend, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, Legend, ResponsiveContainer, XAxis, YAxis } from "recharts";
+
 
 const AttendanceCharts = () => {
     const data = [
@@ -18,24 +19,26 @@ const AttendanceCharts = () => {
         { month: "December", present: 20 },
     ]
     return (
-        <>
-            <Typography variant='h4' fontWeight={600}>Attendance Charts</Typography>
-            <Box>
+        <Box>
+            <Typography variant='h4' fontWeight={600}>Monthly Attendance Chart</Typography>
+            <ResponsiveContainer width="100%" height={350}>
                 <BarChart
-                    style={{
-                        boxShadow: "0 0 8px 5px rgba(255,255,255, 0.2), 0 0 20px 20px rgba(255,255,255, 0.19)", width: "80%", margin: "10px auto"
-                    }}
-                    width={1200}
-                    height={350}
                     data={data}
+                    margin={{ top: 20, right: 30, left: 0, bottom: 0 }}
+
+                    style={{
+                        boxShadow: "0 0 8px 5px rgba(255,255,255, 0.2), 0 0 20px 20px rgba(255,255,255, 0.19)",
+                        width: "95%",
+                        margin: "20px auto",
+                    }}
                 >
                     <XAxis dataKey="month" />
                     <YAxis />
                     <Legend />
                     <Bar type="linear" dataKey="present" stroke='#8884d8' fill="#8884d8" />
                 </BarChart>
-            </Box>
-        </>
+            </ResponsiveContainer>
+        </Box>
     )
 }
 
