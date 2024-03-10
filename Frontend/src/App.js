@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Attendance, Dashboard, Home, Nav, Reports, Profile } from './components';
+import { Attendance, Dashboard, Home, Nav, Reports, Profile, SignupForm, LoginForm } from './components';
 import { ContextApiProvider } from './context/ContextApi';
 
 function App() {
@@ -14,6 +14,8 @@ function App() {
           <Route exact path="/reports" element={<Reports />} />
           <Route exact path="/attendance" element={<Attendance />} />
           <Route exact path="/profile" element={<Profile />} />
+          <Route exact path="/signup" element={<SignupForm />} />
+          <Route exact path="/login" element={<LoginForm />} />
         </Routes>
       </BrowserRouter>
     </ContextApiProvider>

@@ -1,6 +1,5 @@
 import { AppBar, Box, Drawer, List, ListItem, Toolbar, styled } from "@mui/material"
 import { Link } from 'react-router-dom';
-import LoginButton from './LoginButton';
 import { useContext, useState } from "react";
 import { AccountCircle } from "@mui/icons-material";
 import { ContextApi } from "../../context/ContextApi";
@@ -66,9 +65,14 @@ const Nav = () => {
                                 </Drawer>
                             </>
                             :
-                            <ListItem className="cursor-pointer">
-                                <LoginButton />
-                            </ListItem>
+                            <>
+                                <ListItem>
+                                    <Link to="/signup">Signup</Link>
+                                </ListItem>
+                                <ListItem>
+                                    <Link to="/login">Login</Link>
+                                </ListItem>
+                            </>
 
                     }
                 </List>
