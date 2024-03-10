@@ -10,10 +10,15 @@ export const ContextApiProvider = ({ children }) => {
         email: '',
         phone: '',
         password: '',
+        birthdate: '',
+        gender: '',
+        nationality: '',
+        address: '',
+        prn: '',
     });
     const [file, setFile] = useState('');
     const [login, setLogin] = useState({
-        email: '',
+        prn: '',
         password: '',
     });
     const [error, setError] = useState(false);
